@@ -8,7 +8,7 @@ final consumerRouter = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(path: '/', builder: (context, _) => const WelcomeScreen()),
-    GoRoute(path: '/login', builder: (context, _) => const SigninScreen()),
+    GoRoute(path: '/login', builder: (context, _) => const SignInScreen()),
     GoRoute(
       path: '/dashboard',
       builder: (context, _) => const DashboardScreen(),

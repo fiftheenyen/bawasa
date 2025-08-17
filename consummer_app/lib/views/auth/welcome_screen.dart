@@ -27,7 +27,7 @@ class WelcomeScreen extends StatelessWidget {
 
             return Padding(
               padding: EdgeInsets.symmetric(
-                horizontal: SizingConfig.widthMultiplier * 6,
+                horizontal: SizingConfig.widthMultiplier * 5,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
