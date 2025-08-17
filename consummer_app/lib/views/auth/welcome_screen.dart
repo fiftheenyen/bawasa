@@ -20,9 +20,9 @@ class WelcomeScreen extends StatelessWidget {
                   Text(
                     'BAWASA',
                     style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blue.shade700,
+                      fontSize: 48,
+                      fontWeight: FontWeight.w900,
+                      color: Theme.of(context).colorScheme.primary,
                       fontFamily: 'Satoshi',
                     ),
                   ),
@@ -43,7 +43,7 @@ class WelcomeScreen extends StatelessWidget {
                 child: ElevatedButton(
                   onPressed: () => context.go('/login'),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue.shade700,
+                    backgroundColor: const Color(0xFF1D4ED8),
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8),
