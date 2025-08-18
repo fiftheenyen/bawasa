@@ -38,11 +38,12 @@ class _SignInScreenState extends State<SignInScreen> {
 
   bool _obscurePassword = true;
 
-  void _onLoginPressed() async {
+  Future<void> _onLoginPressed() async {
     final email = _emailController.text.trim();
     final password = _passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
+      if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Please enter both email and password')),
       );
@@ -51,17 +52,25 @@ class _SignInScreenState extends State<SignInScreen> {
 
     setState(() => _isLoading = true);
 
-    final success = await _authService.login(email, password);
+    try {
+      final success = await _authService.login(email, password);
 
-    if (!mounted) return; // Prevents context issues across async gap
-    setState(() => _isLoading = false);
+      if (!mounted) return;
+      setState(() => _isLoading = false);
 
-    if (success) {
-      context.go(AppRoutes.dashboard);
-    } else {
+      if (success) {
+        context.go(AppRoutes.dashboard); // role‑based nav stays possible here
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
+      }
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _isLoading = false);
       ScaffoldMessenger.of(
         context,
-      ).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
+      ).showSnackBar(SnackBar(content: Text('Login failed: $e')));
     }
   }
 
