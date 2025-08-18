@@ -48,7 +48,7 @@ class DashboardScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(4 * SizingConfig.widthMultiplier),
                   decoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: const Color(0xFF1D4ED8),
                     borderRadius: BorderRadius.circular(
                       1.2 * SizingConfig.heightMultiplier,
                     ),
