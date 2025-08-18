@@ -13,8 +13,26 @@ class SizingConfig {
   }
 }
 
-class WaterUsageScreen extends StatelessWidget {
+class WaterUsageScreen extends StatefulWidget {
   const WaterUsageScreen({super.key});
+
+  @override
+  State<WaterUsageScreen> createState() => _WaterUsageScreenState();
+}
+
+class _WaterUsageScreenState extends State<WaterUsageScreen> {
+  int _selectedIndex = 1; // Water Usage tab
+
+  void _onItemTapped(int index) {
+    if (index == _selectedIndex) return; // avoid reloading same tab
+    // Handle navigation
+    switch (index) {
+      case 0:
+        Navigator.pop(context); // Back to Dashboard
+        break;
+      // Add routing for Payment, Report, Profile
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +56,6 @@ class WaterUsageScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Water usage label
                 Text(
                   'Water Usage',
                   style: TextStyle(
@@ -46,40 +63,32 @@ class WaterUsageScreen extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-
-                SizedBox(height: 1 * SizingConfig.heightMultiplier),
-
-                // Average usage
-                Text(
-                  'Average: 32 m³',
-                  style: TextStyle(
-                    fontSize: 1.4 * SizingConfig.textMultiplier,
-                    color: Colors.grey[700],
-                  ),
-                ),
-
                 SizedBox(height: 2 * SizingConfig.heightMultiplier),
 
-                // Graph placeholder
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
-                      borderRadius: BorderRadius.circular(
-                        1.2 * SizingConfig.heightMultiplier,
-                      ),
-                    ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'Water usage graph placeholder\n(Oct – Mar)',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 1.4 * SizingConfig.textMultiplier,
-                        color: Colors.black54,
-                      ),
+                // Placeholder for the usage graph
+                Container(
+                  height: 25 * SizingConfig.heightMultiplier,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(
+                      1.2 * SizingConfig.heightMultiplier,
                     ),
                   ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Graph Placeholder',
+                    style: TextStyle(
+                      fontSize: 1.4 * SizingConfig.textMultiplier,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 2 * SizingConfig.heightMultiplier),
+
+                Text(
+                  'Average usage: 32 m³',
+                  style: TextStyle(fontSize: 1.6 * SizingConfig.textMultiplier),
                 ),
               ],
             ),
