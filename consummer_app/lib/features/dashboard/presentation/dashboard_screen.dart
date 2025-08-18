@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../water_usage/presentation/water_usage_screen.dart';
 
 class SizingConfig {
   static late double textMultiplier;
@@ -20,6 +21,27 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    switch (index) {
+      case 0:
+        // Home – already here
+        break;
+      case 1:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WaterUsageScreen()),
+        );
+        break;
+      // TODO: Add cases for Payment, Report, and Profile
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -29,16 +51,21 @@ class _DashboardScreenState extends State<DashboardScreen> {
         return Scaffold(
           appBar: AppBar(
             title: Text(
-              'Welcome back, John',
+              'Home',
               style: TextStyle(
-                fontSize: 2.1 * SizingConfig.textMultiplier,
-                fontWeight: FontWeight.w700,
+                fontSize: 2 * SizingConfig.textMultiplier,
+                fontWeight: FontWeight.bold,
               ),
             ),
+            centerTitle: true,
             actions: [
               IconButton(
                 icon: const Icon(Icons.notifications_none),
-                onPressed: () {},
+                iconSize: 2.4 * SizingConfig.heightMultiplier,
+                onPressed: () {
+                  // TODO: Navigate to notifications screen or show a dropdown
+                  debugPrint('Bell icon tapped');
+                },
               ),
             ],
           ),
@@ -47,9 +74,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                Text(
+                  'Welcome back, John',
+                  style: TextStyle(
+                    fontSize: 1.6 * SizingConfig.textMultiplier,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
                 SizedBox(height: 2 * SizingConfig.heightMultiplier),
 
-                // Amount to pay card
                 Container(
                   padding: EdgeInsets.all(4 * SizingConfig.widthMultiplier),
                   decoration: BoxDecoration(
@@ -66,7 +99,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                 ),
-
                 SizedBox(height: 3 * SizingConfig.heightMultiplier),
 
                 Text(
@@ -83,15 +115,27 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // Placeholder for graph
                 Container(
                   height: 20 * SizingConfig.heightMultiplier,
-                  color: Colors.grey.shade300,
+                  width: double.infinity,
                   margin: EdgeInsets.symmetric(
                     vertical: 2 * SizingConfig.heightMultiplier,
                   ),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(
+                      1.2 * SizingConfig.heightMultiplier,
+                    ),
+                  ),
+                  alignment: Alignment.center,
+                  child: Text(
+                    'Graph placeholder',
+                    style: TextStyle(
+                      fontSize: 1.4 * SizingConfig.textMultiplier,
+                      color: Colors.black54,
+                    ),
+                  ),
                 ),
-
                 SizedBox(height: 3 * SizingConfig.heightMultiplier),
 
                 Text(
@@ -101,11 +145,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                // TODO: Maintenance list widget
               ],
             ),
           ),
           bottomNavigationBar: BottomNavigationBar(
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
             type: BottomNavigationBarType.fixed,
             selectedFontSize: 1.2 * SizingConfig.textMultiplier,
             unselectedFontSize: 1.2 * SizingConfig.textMultiplier,

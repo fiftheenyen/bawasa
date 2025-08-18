@@ -1,7 +1,7 @@
 import 'package:go_router/go_router.dart';
-import '../views/auth/welcome_screen.dart';
-import '../views/auth/signin_screen.dart';
-import '../views/dashboard/dashboard_screen.dart';
+import '../features/auth/welcome_screen.dart';
+import '../features/auth/signin_screen.dart';
+import '../features/dashboard/presentation/dashboard_screen.dart';
 import 'routes/app_routes.dart';
 
 final consumerRouter = GoRouter(
