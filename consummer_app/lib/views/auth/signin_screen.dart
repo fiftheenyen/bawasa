@@ -128,7 +128,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Password Field with Eye Icon
                   TextField(
                     obscureText: _obscurePassword,
-                    controller: _emailController,
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       labelStyle: TextStyle(
