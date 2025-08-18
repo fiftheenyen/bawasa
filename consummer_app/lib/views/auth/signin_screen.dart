@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:consummer_app/core/routes/app_routes.dart';
+import 'package:consummer_app/core/services/auth_service.dart';
 
 class SizingConfig {
   static late double textMultiplier;
@@ -22,13 +23,46 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  final _authService = AuthService();
+
   bool _obscurePassword = true;
 
-  void _onLoginPressed() {
-    context.go(AppRoutes.dashboard);
-    debugPrint('Login button pressed');
+  void _onLoginPressed() async {
+    final email = _emailController.text.trim();
+    final password = _passwordController.text;
 
-    debugPrint('Login button pressed');
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter both email and password')),
+      );
+      return;
+    }
+
+    setState(() => _isLoading = true);
+
+    final success = await _authService.login(email, password);
+
+    if (!mounted) return; // Prevents context issues across async gap
+    setState(() => _isLoading = false);
+
+    if (success) {
+      context.go(AppRoutes.dashboard);
+    } else {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Invalid credentials')));
+    }
   }
 
   @override
@@ -63,6 +97,7 @@ class _SignInScreenState extends State<SignInScreen> {
 
                   // Email Field
                   TextField(
+                    controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Email',
                       labelStyle: TextStyle(
@@ -84,6 +119,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   // Password Field with Eye Icon
                   TextField(
                     obscureText: _obscurePassword,
+                    controller: _emailController,
                     decoration: InputDecoration(
                       labelText: 'Password',
                       labelStyle: TextStyle(
@@ -130,14 +166,16 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                       ),
                       onPressed: _onLoginPressed,
-                      child: Text(
-                        'Sign In',
-                        style: TextStyle(
-                          fontSize: SizingConfig.textMultiplier * 2.2,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
+                      child: _isLoading
+                          ? const CircularProgressIndicator(color: Colors.white)
+                          : Text(
+                              'Sign In',
+                              style: TextStyle(
+                                fontSize: SizingConfig.textMultiplier * 2.2,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white,
+                              ),
+                            ),
                     ),
                   ),
 
