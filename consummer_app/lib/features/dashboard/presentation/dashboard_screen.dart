@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../water_usage/presentation/water_usage_screen.dart';
+import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 
 class SizingConfig {
   static late double textMultiplier;
@@ -148,31 +149,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
+          bottomNavigationBar: CustomBottomNavBar(
             currentIndex: _selectedIndex,
             onTap: _onItemTapped,
-            type: BottomNavigationBarType.fixed,
-            selectedFontSize: 1.2 * SizingConfig.textMultiplier,
-            unselectedFontSize: 1.2 * SizingConfig.textMultiplier,
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.show_chart),
-                label: 'Water usage',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.payment),
-                label: 'Payment',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.report_problem),
-                label: 'Report',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-              ),
-            ],
           ),
         );
       },
