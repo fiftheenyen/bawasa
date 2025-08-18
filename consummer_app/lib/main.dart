@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'core/router.dart';
+import 'package:consummer_app/core/utils/sizing_config.dart';
 
 void main() {
   runApp(const ConsumerApp());
@@ -10,18 +11,23 @@ class ConsumerApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'BAWASA Consumer',
-      theme: ThemeData(
-        // Global primary colors
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1D4ED8),
-          primary: const Color(0xFF1D4ED8), // button background
-          onPrimary: const Color(0xFFF7F7F7), // text on button
-        ),
-      ),
-      routerConfig: consumerRouter,
-      debugShowCheckedModeBanner: false,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        SizingConfig.init(constraints);
+
+        return MaterialApp.router(
+          title: 'BAWASA Consumer',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF1D4ED8),
+              primary: const Color(0xFF1D4ED8),
+              onPrimary: const Color(0xFFF7F7F7),
+            ),
+          ),
+          routerConfig: consumerRouter,
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
   }
 }

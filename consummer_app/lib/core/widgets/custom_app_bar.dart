@@ -1,17 +1,6 @@
 // lib/core/widgets/custom_app_bar.dart
 import 'package:flutter/material.dart';
-
-class SizingConfig {
-  static late double textMultiplier;
-  static late double heightMultiplier;
-  static late double widthMultiplier;
-
-  static void init(BoxConstraints constraints) {
-    heightMultiplier = constraints.maxHeight / 100;
-    widthMultiplier = constraints.maxWidth / 100;
-    textMultiplier = heightMultiplier;
-  }
-} // adjust path if needed
+import 'package:consummer_app/core/utils/sizing_config.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -42,7 +31,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: centerTitle,
       actions: actions,
       elevation: elevation ?? 0,
-      backgroundColor: backgroundColor ?? Theme.of(context).primaryColor,
     );
   }
 

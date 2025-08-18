@@ -1,17 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
-
-class SizingConfig {
-  static late double textMultiplier;
-  static late double heightMultiplier;
-  static late double widthMultiplier;
-
-  static void init(BoxConstraints constraints) {
-    heightMultiplier = constraints.maxHeight / 100;
-    widthMultiplier = constraints.maxWidth / 100;
-    textMultiplier = heightMultiplier;
-  }
-}
+import 'package:consummer_app/core/widgets/custom_app_bar.dart';
+import 'package:consummer_app/core/utils/sizing_config.dart';
 
 class WaterUsageScreen extends StatefulWidget {
   const WaterUsageScreen({super.key});
@@ -41,16 +31,19 @@ class _WaterUsageScreenState extends State<WaterUsageScreen> {
         SizingConfig.init(constraints);
 
         return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'Analytics',
-              style: TextStyle(
-                fontSize: 2 * SizingConfig.textMultiplier,
-                fontWeight: FontWeight.bold,
+          appBar: CustomAppBar(
+            title: 'Home',
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.notifications_none),
+                iconSize: 2.4 * SizingConfig.heightMultiplier,
+                onPressed: () {
+                  debugPrint('Bell icon tapped');
+                },
               ),
-            ),
-            centerTitle: true,
+            ],
           ),
+
           body: Padding(
             padding: EdgeInsets.all(4 * SizingConfig.widthMultiplier),
             child: Column(
