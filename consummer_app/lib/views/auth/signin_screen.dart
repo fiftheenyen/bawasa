@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:consummer_app/core/routes/app_routes.dart';
 
 class SizingConfig {
   static late double textMultiplier;
@@ -23,7 +25,9 @@ class _SignInScreenState extends State<SignInScreen> {
   bool _obscurePassword = true;
 
   void _onLoginPressed() {
-    // TODO: Add authentication logic here
+    context.go(AppRoutes.dashboard);
+    debugPrint('Login button pressed');
+
     debugPrint('Login button pressed');
   }
 
