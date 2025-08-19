@@ -121,7 +121,10 @@ class PaymentScreen extends StatelessWidget {
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF1D4ED8),
             ),
-            child: const Text('Pay Now'),
+            child: const Text(
+              'Pay Now',
+              style: TextStyle(color: Color(0xFFF7F7F7)),
+            ),
           ),
         ),
         SizedBox(width: 4 * SizingConfig.widthMultiplier),
