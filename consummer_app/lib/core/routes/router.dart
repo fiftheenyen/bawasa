@@ -10,26 +10,37 @@ import 'package:consummer_app/features/auth/signin_screen.dart';
 import 'package:consummer_app/features/dashboard/presentation/dashboard_screen.dart';
 import 'package:consummer_app/features/water_usage/presentation/water_usage_screen.dart';
 
-// Shared widgets
+// Shared
 import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 
+/// A no‑animation page wrapper for instant tab switching
+class NoTransitionPage<T> extends CustomTransitionPage<T> {
+  NoTransitionPage({required super.child})
+    : super(
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return child; // No animation at all
+        },
+      );
+}
+
 final consumerRouter = GoRouter(
-  initialLocation: AppRoutes.dashboard,
+  initialLocation: AppRoutes.welcome,
   routes: [
     // Onboarding
     GoRoute(
       path: AppRoutes.welcome,
       builder: (context, state) => const WelcomeScreen(),
     ),
+
+    // Auth
     GoRoute(
       path: AppRoutes.signIn,
       builder: (context, state) => const SignInScreen(),
     ),
 
-    // ShellRoute wraps all bottom nav pages in one scaffold
+    // ShellRoute for all bottom nav pages
     ShellRoute(
       builder: (context, state, child) {
-        // Determine active index based on current location
         final location = state.uri.toString();
         int currentIndex;
         if (location.startsWith(AppRoutes.dashboard)) {
@@ -60,12 +71,15 @@ final consumerRouter = GoRouter(
       routes: [
         GoRoute(
           path: AppRoutes.dashboard,
-          builder: (context, state) => const DashboardScreen(),
+          pageBuilder: (context, state) =>
+              NoTransitionPage(child: const DashboardScreen()),
         ),
         GoRoute(
           path: AppRoutes.waterUsage,
-          builder: (context, state) => const WaterUsageScreen(),
+          pageBuilder: (context, state) =>
+              NoTransitionPage(child: const WaterUsageScreen()),
         ),
+        // 📌 Add future Payment, Reports, Profile here...
       ],
     ),
   ],

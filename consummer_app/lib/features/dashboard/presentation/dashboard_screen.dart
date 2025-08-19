@@ -124,10 +124,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: CustomBottomNavBar(
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
         );
       },
     );

@@ -86,10 +86,6 @@ class _WaterUsageScreenState extends State<WaterUsageScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: CustomBottomNavBar(
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
         );
       },
     );
