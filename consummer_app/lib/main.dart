@@ -23,14 +23,11 @@ class ConsumerApp extends StatelessWidget {
               primary: const Color(0xFF1D4ED8),
               onPrimary: const Color(0xFFF7F7F7),
             ),
-            // 🚫 Disable all default page transitions
-            pageTransitionsTheme: const PageTransitionsTheme(
+            // Scoped transitions: instant for ShellRoute children, normal elsewhere
+            pageTransitionsTheme: PageTransitionsTheme(
               builders: {
-                TargetPlatform.android: NoTransitionsBuilder(),
-                TargetPlatform.iOS: NoTransitionsBuilder(),
-                TargetPlatform.macOS: NoTransitionsBuilder(),
-                TargetPlatform.windows: NoTransitionsBuilder(),
-                TargetPlatform.linux: NoTransitionsBuilder(),
+                for (final platform in TargetPlatform.values)
+                  platform: _ScopedNoTransitionBuilder(),
               },
             ),
           ),
@@ -42,9 +39,9 @@ class ConsumerApp extends StatelessWidget {
   }
 }
 
-/// A PageTransitionsBuilder that shows pages instantly with no animation
-class NoTransitionsBuilder extends PageTransitionsBuilder {
-  const NoTransitionsBuilder();
+/// Custom builder: disables transitions only for ShellRoute child pages
+class _ScopedNoTransitionBuilder extends PageTransitionsBuilder {
+  const _ScopedNoTransitionBuilder();
 
   @override
   Widget buildTransitions<T>(
@@ -54,6 +51,22 @@ class NoTransitionsBuilder extends PageTransitionsBuilder {
     Animation<double> secondaryAnimation,
     Widget child,
   ) {
-    return child; // 👈 no fade, slide, or scale — just show the child instantly
+    final settingsName = route.settings.name ?? '';
+    final isBottomNavRoute =
+        settingsName.startsWith('/dashboard') ||
+        settingsName.startsWith('/water-usage') ||
+        settingsName.startsWith('/payment') ||
+        settingsName.startsWith('/report') ||
+        settingsName.startsWith('/profile');
+
+    return isBottomNavRoute
+        ? child
+        : const FadeUpwardsPageTransitionsBuilder().buildTransitions(
+            route,
+            context,
+            animation,
+            secondaryAnimation,
+            child,
+          );
   }
 }
