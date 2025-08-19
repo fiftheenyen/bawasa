@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:consummer_app/core/routes/app_routes.dart';
 
 class SizingConfig {
   static late double textMultiplier;
@@ -60,7 +61,7 @@ class WelcomeScreen extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => context.go('/login'),
+                      onPressed: () => context.go(AppRoutes.signIn),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF1D4ED8),
                         padding: EdgeInsets.symmetric(

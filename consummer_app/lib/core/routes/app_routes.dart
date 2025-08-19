@@ -1,7 +1,10 @@
-// lib/core/routes/app_routes.dart
 class AppRoutes {
-  static const welcome = '/';
-  static const signIn = '/login';
-  static const dashboard = '/dashboard';
-  static const waterUsage = '/water-usage';
+  static const String welcome = '/welcome';
+  static const String signIn = '/sign-in';
+
+  static const String dashboard = '/dashboard';
+  static const String waterUsage = '/water-usage';
+  static const String payment = '/payment';
+  static const String report = '/report';
+  static const String profile = '/profile';
 }

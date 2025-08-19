@@ -1,29 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 import 'package:consummer_app/core/widgets/custom_app_bar.dart';
 import 'package:consummer_app/core/utils/sizing_config.dart';
-import 'package:consummer_app/core/navigation/bottom_nav_handler.dart';
 
-class WaterUsageScreen extends StatefulWidget {
-  final int initialIndex;
-  const WaterUsageScreen({super.key, this.initialIndex = 1});
-
-  @override
-  State<WaterUsageScreen> createState() => _WaterUsageScreenState();
-}
-
-class _WaterUsageScreenState extends State<WaterUsageScreen> {
-  late int _selectedIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.initialIndex;
-  }
-
-  void _onItemTapped(int index) {
-    handleBottomNavTap(context, _selectedIndex, index);
-  }
+class WaterUsageScreen extends StatelessWidget {
+  const WaterUsageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +13,7 @@ class _WaterUsageScreenState extends State<WaterUsageScreen> {
 
         return Scaffold(
           appBar: CustomAppBar(
-            title: 'Home',
+            title: 'Water Usage',
             actions: [
               IconButton(
                 icon: const Icon(Icons.notifications_none),

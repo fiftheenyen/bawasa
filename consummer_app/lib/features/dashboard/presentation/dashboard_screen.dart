@@ -1,30 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 import 'package:consummer_app/core/widgets/custom_app_bar.dart';
 import 'package:consummer_app/core/utils/sizing_config.dart';
-import 'package:consummer_app/core/navigation/bottom_nav_handler.dart';
-import 'package:consummer_app/core/routes/app_routes.dart';
 
-class DashboardScreen extends StatefulWidget {
-  final int initialIndex;
-  const DashboardScreen({super.key, this.initialIndex = 0});
-
-  @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
-}
-
-class _DashboardScreenState extends State<DashboardScreen> {
-  late int _selectedIndex;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedIndex = widget.initialIndex;
-  }
-
-  void _onItemTapped(int index) {
-    handleBottomNavTap(context, _selectedIndex, index);
-  }
+class DashboardScreen extends StatelessWidget {
+  const DashboardScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -59,6 +38,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 ),
                 SizedBox(height: 2 * SizingConfig.heightMultiplier),
 
+                // Amount Due Card
                 Container(
                   padding: EdgeInsets.all(4 * SizingConfig.widthMultiplier),
                   decoration: BoxDecoration(
@@ -75,8 +55,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 3 * SizingConfig.heightMultiplier),
 
+                // Water Usage
                 Text(
                   'Water usage',
                   style: TextStyle(
@@ -112,8 +94,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     ),
                   ),
                 ),
+
                 SizedBox(height: 3 * SizingConfig.heightMultiplier),
 
+                // Maintenance Section
                 Text(
                   'Ongoing maintenance',
                   style: TextStyle(
