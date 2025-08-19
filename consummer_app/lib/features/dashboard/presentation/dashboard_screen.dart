@@ -1,36 +1,29 @@
 import 'package:flutter/material.dart';
-import '../../water_usage/presentation/water_usage_screen.dart';
 import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 import 'package:consummer_app/core/widgets/custom_app_bar.dart';
 import 'package:consummer_app/core/utils/sizing_config.dart';
+import 'package:consummer_app/core/navigation/bottom_nav_handler.dart';
+import 'package:consummer_app/core/routes/app_routes.dart';
 
 class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+  final int initialIndex;
+  const DashboardScreen({super.key, this.initialIndex = 0});
 
   @override
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        // Home – already here
-        break;
-      case 1:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const WaterUsageScreen()),
-        );
-        break;
-      // TODO: Add cases for Payment, Report, and Profile
-    }
+    handleBottomNavTap(context, _selectedIndex, index);
   }
 
   @override

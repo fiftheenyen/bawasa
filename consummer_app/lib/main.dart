@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'core/router.dart';
+import 'core/routes/router.dart';
 import 'package:consummer_app/core/utils/sizing_config.dart';
 
 void main() {

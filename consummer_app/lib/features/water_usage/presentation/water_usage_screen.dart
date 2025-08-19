@@ -2,26 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:consummer_app/core/widgets/custom_bottom_nav_bar.dart';
 import 'package:consummer_app/core/widgets/custom_app_bar.dart';
 import 'package:consummer_app/core/utils/sizing_config.dart';
+import 'package:consummer_app/core/navigation/bottom_nav_handler.dart';
 
 class WaterUsageScreen extends StatefulWidget {
-  const WaterUsageScreen({super.key});
+  final int initialIndex;
+  const WaterUsageScreen({super.key, this.initialIndex = 1});
 
   @override
   State<WaterUsageScreen> createState() => _WaterUsageScreenState();
 }
 
 class _WaterUsageScreenState extends State<WaterUsageScreen> {
-  int _selectedIndex = 1; // Water Usage tab
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
 
   void _onItemTapped(int index) {
-    if (index == _selectedIndex) return; // avoid reloading same tab
-    // Handle navigation
-    switch (index) {
-      case 0:
-        Navigator.pop(context); // Back to Dashboard
-        break;
-      // Add routing for Payment, Report, Profile
-    }
+    handleBottomNavTap(context, _selectedIndex, index);
   }
 
   @override
@@ -43,7 +44,6 @@ class _WaterUsageScreenState extends State<WaterUsageScreen> {
               ),
             ],
           ),
-
           body: Padding(
             padding: EdgeInsets.all(4 * SizingConfig.widthMultiplier),
             child: Column(
