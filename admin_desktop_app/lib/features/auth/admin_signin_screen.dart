@@ -55,11 +55,11 @@ class _AdminSignInScreenState extends State<AdminSignInScreen> {
                         const Text(
                           'Sign In',
                           style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.w600,
+                            fontSize: 36,
+                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        const SizedBox(height: 24),
+                        const SizedBox(height: 40),
 
                         TextFormField(
                           controller: _emailController,
